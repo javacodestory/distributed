@@ -9,9 +9,9 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <scm>
-        <connection>scm:git:https://github.com/javacodestory/zookeeper/tree/master/research-zoo-keeper</connection>
-        <developerConnection>scm:git:https://github.com/javacodestory/zookeeper/tree/master/research-zoo-keeper</developerConnection>
-        <url>https://github.com/javacodestory/zookeeper/tree/master/research-zoo-keeper</url>
+        <connection>scm:git:https://github.com/javacodestory/distributed/tree/master/research-zoo-keeper</connection>
+        <developerConnection>scm:git:https://github.com/javacodestory/distributed/tree/master/research-zoo-keeper</developerConnection>
+        <url>https://github.com/javacodestory/distributed/tree/master/research-zoo-keeper</url>
     </scm>
 
     <dependencies>
