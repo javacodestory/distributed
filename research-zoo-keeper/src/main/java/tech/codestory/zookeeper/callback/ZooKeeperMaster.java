@@ -3,8 +3,8 @@ package tech.codestory.zookeeper.callback;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
-
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Random;
 import java.util.zip.ZipEntry;
@@ -105,7 +105,7 @@ public class ZooKeeperMaster implements Watcher {
             try {
                 Stat stat = new Stat();
                 byte[] data = zk.getData("/master", false, stat);
-                String readValue = new String(data);
+                String readValue = new String(data, StandardCharsets.UTF_8);
                 isLeader = readValue.equals(serverId);
                 log.info("get node value {} compare with {}", readValue, serverId);
                 return true;
@@ -122,8 +122,8 @@ public class ZooKeeperMaster implements Watcher {
             ZooKeeperMasterCallback masterCreateCallback = new ZooKeeperMasterCallback(this);
             try {
                 log.info("create node with {}", serverId);
-                zk.create("/master", serverId.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL,
-                        masterCreateCallback, null);
+                zk.create("/master", serverId.getBytes(StandardCharsets.UTF_8), ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                        CreateMode.EPHEMERAL, masterCreateCallback, null);
                 isLeader = true;
                 break;
             } catch (Exception e) {

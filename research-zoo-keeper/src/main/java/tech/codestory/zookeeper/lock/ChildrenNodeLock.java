@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.codestory.zookeeper.ZooKeeperBase;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -119,7 +120,7 @@ public abstract class ChildrenNodeLock extends ZooKeeperBase implements ZooKeepe
         try {
             // 创建子节点并返回带序列号的节点名
             String fullNodeName = this.guidNodeName + "/" + getChildPrefix();
-            byte[] nodeValue = clientGuid == null ? new byte[0] : clientGuid.getBytes();
+            byte[] nodeValue = clientGuid == null ? new byte[0] : clientGuid.getBytes(StandardCharsets.UTF_8);
             elementNodeFullName = getZooKeeper().create(fullNodeName, nodeValue,
                     ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
             elementNodeName = elementNodeFullName.substring(guidNodeName.length() + 1);

@@ -5,33 +5,32 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>tech.codestory.research</groupId>
-    <artifactId>research-curator</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>research-java</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <modules>
-        <module>../research-java</module>
-    </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.apache.zookeeper</groupId>
-                <artifactId>zookeeper</artifactId>
-                <version>3.5.5</version>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>28.0-jre</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>findbugs</artifactId>
+                <version>3.0.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
         <dependency>
-            <groupId>org.apache.curator</groupId>
-            <artifactId>curator-framework</artifactId>
-            <version>4.2.0</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.curator</groupId>
-            <artifactId>curator-recipes</artifactId>
-            <version>4.2.0</version>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>findbugs</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -85,21 +84,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>false</filtering>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <filtering>false</filtering>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -118,17 +103,6 @@
                 <configuration>
                     <encoding>UTF-8</encoding>
                     <overwrite>true</overwrite>
-                    <nonFilteredFileExtensions>
-                        <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>swf</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>ico</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>gif</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>bmp</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>jpg</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>png</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>zip</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>rar</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
                 </configuration>
             </plugin>
             <plugin>
@@ -140,7 +114,28 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/testng/testng-barrier.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/testng/testng-queue.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/testng/testng-lock.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <tagBase>https://github.com/javacodestory/zookeeper/tree/tags/research-zoo-keeper/</tagBase>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.5</version>
             </plugin>
         </plugins>
     </build>
+
 </project>

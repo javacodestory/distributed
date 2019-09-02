@@ -1,11 +1,10 @@
 package tech.codestory.zookeeper;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.security.SecureRandom;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
+
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 import org.slf4j.Logger;
@@ -14,25 +13,40 @@ import org.slf4j.profiler.Profiler;
 
 /**
  * 为 ZooKeeper测试代码创建一个基类，封装建立连接的过程
- * 
+ *
  * @author junyongliao
  * @date 2019/8/16
  */
 public class ZooKeeperBase implements Watcher {
-    /** 日志，不使用 @Slf4j ，是要使用子类的log */
+    /**
+     * 日志，不使用 @Slf4j ，是要使用子类的log
+     */
     Logger log = null;
 
-    /** 等待连接建立成功的信号 */
+    protected final Random random = new SecureRandom();
+    protected final String serverId = Integer.toHexString(random.nextInt());
+
+    /**
+     * 等待连接建立成功的信号
+     */
     private CountDownLatch connectedSemaphore = new CountDownLatch(1);
-    /** ZooKeeper 客户端 */
+    /**
+     * ZooKeeper 客户端
+     */
     private ZooKeeper zooKeeper = null;
-    /** 避免重复根节点 */
+    /**
+     * 避免重复根节点
+     */
     static Integer rootNodeInitial = Integer.valueOf(1);
 
-    /** 收到的所有Event */
+    /**
+     * 收到的所有Event
+     */
     List<WatchedEvent> watchedEventList = new ArrayList<>();
 
-    /** 构造函数 */
+    /**
+     * 构造函数
+     */
     public ZooKeeperBase(String address) throws IOException {
         log = LoggerFactory.getLogger(getClass());
 
@@ -52,7 +66,7 @@ public class ZooKeeperBase implements Watcher {
 
     /**
      * 创建测试需要的根节点
-     * 
+     *
      * @param rootNodeName
      * @return
      */
@@ -63,7 +77,7 @@ public class ZooKeeperBase implements Watcher {
 
     /**
      * 创建测试需要的根节点，需要指定 CreateMode
-     * 
+     *
      * @param rootNodeName
      * @param createMode
      * @return
@@ -86,7 +100,9 @@ public class ZooKeeperBase implements Watcher {
         return rootNodeName;
     }
 
-    /** 读取ZooKeeper对象，供子类调用 */
+    /**
+     * 读取ZooKeeper对象，供子类调用
+     */
     public ZooKeeper getZooKeeper() {
         return zooKeeper;
     }
@@ -116,33 +132,39 @@ public class ZooKeeperBase implements Watcher {
 
     /**
      * 处理事件: NodeCreated
-     * 
+     *
      * @param event
      */
-    protected void processNodeCreated(WatchedEvent event) {}
+    protected void processNodeCreated(WatchedEvent event) {
+    }
 
     /**
      * 处理事件: NodeDeleted
      *
      * @param event
      */
-    protected void processNodeDeleted(WatchedEvent event) {}
+    protected void processNodeDeleted(WatchedEvent event) {
+    }
 
     /**
      * 处理事件: NodeDataChanged
      *
      * @param event
      */
-    protected void processNodeDataChanged(WatchedEvent event) {}
+    protected void processNodeDataChanged(WatchedEvent event) {
+    }
 
     /**
      * 处理事件: NodeChildrenChanged
      *
      * @param event
      */
-    protected void processNodeChildrenChanged(WatchedEvent event) {}
+    protected void processNodeChildrenChanged(WatchedEvent event) {
+    }
 
-    /** 收到的所有 Event 列表 */
+    /**
+     * 收到的所有 Event 列表
+     */
     public List<WatchedEvent> getWatchedEventList() {
         return watchedEventList;
     }

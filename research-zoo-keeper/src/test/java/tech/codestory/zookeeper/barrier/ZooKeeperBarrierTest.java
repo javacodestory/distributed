@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.*;
 
 /**
@@ -87,7 +88,7 @@ public class ZooKeeperBarrierTest extends TestBase {
         int r = random.nextInt(100);
         for (int j = 0; j < r; j++) {
             try {
-                Thread.sleep(100);
+                TimeUnit.MILLISECONDS.sleep(100);
             } catch (InterruptedException e) {
                 log.error("InterruptedException", e);
             }

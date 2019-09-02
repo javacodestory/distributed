@@ -1,6 +1,7 @@
 package tech.codestory.zookeeper.lock;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
@@ -41,10 +42,10 @@ public class NodeBlocklessLock extends ZooKeeperBase implements ZooKeeperLock {
 
         try {
             if (getZooKeeper().exists(guidNodeName, false) == null) {
-                getZooKeeper().create(guidNodeName, clientGuid.getBytes(),
+                getZooKeeper().create(guidNodeName, clientGuid.getBytes(StandardCharsets.UTF_8),
                         ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
                 byte[] data = getZooKeeper().getData(guidNodeName, false, null);
-                if (data != null && clientGuid.equals(new String(data))) {
+                if (data != null && clientGuid.equals(new String(data, StandardCharsets.UTF_8))) {
                     result = true;
                 } else {
                     log.info("创建node成功，但值不是自己添加的，理论上不应该出现这种情况");
@@ -73,7 +74,7 @@ public class NodeBlocklessLock extends ZooKeeperBase implements ZooKeeperLock {
         Stat stat = new Stat();
         try {
             byte[] data = getZooKeeper().getData(guidNodeName, false, stat);
-            if (data != null && clientGuid.equals(new String(data))) {
+            if (data != null && clientGuid.equals(new String(data, StandardCharsets.UTF_8))) {
                 getZooKeeper().delete(guidNodeName, stat.getVersion());
                 result = true;
             }

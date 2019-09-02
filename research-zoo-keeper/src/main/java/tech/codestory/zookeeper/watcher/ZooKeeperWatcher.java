@@ -1,11 +1,10 @@
 package tech.codestory.zookeeper.watcher;
 
 import java.io.IOException;
-
+import java.nio.charset.StandardCharsets;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.data.Stat;
-
 import lombok.extern.slf4j.Slf4j;
 import tech.codestory.zookeeper.ZooKeeperBase;
 
@@ -66,7 +65,8 @@ public class ZooKeeperWatcher extends ZooKeeperBase implements Runnable {
             Stat stat = new Stat();
             byte[] data = getZooKeeper().getData(zNode, true, stat);
             if (data != null) {
-                log.info("{}, value={}, version={}", zNode, new String(data), stat.getVersion());
+                log.info("{}, value={}, version={}", zNode,
+                        new String(data, StandardCharsets.UTF_8), stat.getVersion());
             }
         } catch (KeeperException e) {
             log.info("{} 不存在", zNode);

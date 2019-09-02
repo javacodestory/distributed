@@ -3,7 +3,9 @@ package tech.codestory.zookeeper.master;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
-
+import tech.codestory.zookeeper.ZooKeeperBase;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Random;
 
@@ -14,27 +16,12 @@ import java.util.Random;
  * @date 2019/8/26
  */
 @Slf4j
-public class Worker implements Watcher {
-    ZooKeeper zk;
-    String hostPort;
-
-    Random random = new SecureRandom();
-    String serverId = Integer.toHexString(random.nextInt());
-
+public class Worker extends ZooKeeperBase {
     String name;
     String status;
 
-    public Worker(String hostPort) {
-        this.hostPort = hostPort;
-    }
-
-    void startZK() throws Exception {
-        zk = new ZooKeeper(hostPort, 15000, this);
-    }
-
-    @Override
-    public void process(WatchedEvent event) {
-        log.info("{} , {}", event, hostPort);
+    public Worker(String address) throws IOException {
+        super(address);
     }
 
     AsyncCallback.StringCallback createWorkerCallback = new AsyncCallback.StringCallback() {
@@ -51,7 +38,8 @@ public class Worker implements Watcher {
                     log.warn("Worker {} already registered", serverId);
                     break;
                 default:
-                    log.error("Something went wrong", KeeperException.create(KeeperException.Code.get(rc), path));
+                    log.error("Something went wrong",
+                            KeeperException.create(KeeperException.Code.get(rc), path));
             }
         }
     };
@@ -68,13 +56,15 @@ public class Worker implements Watcher {
     };
 
     void register() {
-        zk.create("/workers/worker-" + serverId, "Idle".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL
-                , createWorkerCallback, null);
+        getZooKeeper().create("/workers/worker-" + serverId,
+                "Idle".getBytes(StandardCharsets.UTF_8), ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                CreateMode.EPHEMERAL, createWorkerCallback, null);
     }
 
     synchronized void updateStatus(String status) {
         if (status.equals(this.status)) {
-            zk.setData("/workers/" + name, status.getBytes(), -1, statusUpdateCallback, status);
+            getZooKeeper().setData("/workers/" + name, status.getBytes(StandardCharsets.UTF_8), -1,
+                    statusUpdateCallback, status);
         }
     }
 
@@ -85,7 +75,6 @@ public class Worker implements Watcher {
 
     public static void main(String[] args) throws Exception {
         Worker worker = new Worker("localhost:2181");
-        worker.startZK();
         worker.register();
         Thread.sleep(30000);
     }

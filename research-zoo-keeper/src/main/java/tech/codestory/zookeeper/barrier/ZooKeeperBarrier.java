@@ -2,12 +2,11 @@ package tech.codestory.zookeeper.barrier;
 
 import java.io.IOException;
 import java.util.List;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.ZooDefs.Ids;
-
 import lombok.extern.slf4j.Slf4j;
 import tech.codestory.zookeeper.ZooKeeperBase;
 

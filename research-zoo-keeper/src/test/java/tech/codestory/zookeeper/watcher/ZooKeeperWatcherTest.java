@@ -1,6 +1,7 @@
 package tech.codestory.zookeeper.watcher;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
@@ -61,7 +62,8 @@ public class ZooKeeperWatcherTest extends TestBase {
             Random random = new SecureRandom();
             try {
                 // 创建节点
-                getZooKeeper().create(zNodeName, (zNodeValuePrefix + 0).getBytes(),
+                getZooKeeper().create(zNodeName,
+                        (zNodeValuePrefix + 0).getBytes(StandardCharsets.UTF_8),
                         ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 
                 // 多次修改节点

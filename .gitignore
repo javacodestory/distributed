@@ -1,4 +1,3 @@
 /.idea/
-/research-zoo-keeper/target/
+*target/
 /research-curator/research-curator.iml
-/research-curator/target/
