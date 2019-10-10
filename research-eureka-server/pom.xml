@@ -50,8 +50,54 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                    <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <imageName>research-eureka-server</imageName>
+                    <baseImage>openjdk</baseImage>
+                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>creditease-nexus-groups-public</id>
+            <name>Creditease Nexus Groups Public</name>
+            <url>http://nexus.creditease.corp/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>creditease-nexus-groups-public-plugin</id>
+            <name>Creditease Nexus Groups Public for Plugin</name>
+            <url>http://nexus.creditease.corp/nexus/content/groups/public/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>maven-repository-plugin</id>
+            <name>Maven Repository for Plugin</name>
+            <url>https://mvnrepository.com/artifact/</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
