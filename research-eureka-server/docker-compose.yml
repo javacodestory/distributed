@@ -1,15 +1,14 @@
 version: "3"
 services:
   research-eureka-server:
-    command: ["--spring.profiles.active=${ACTIVE_PROFILE:-docker}"]
-    image: java
+    build: .   # 使用 Dockerfile 构建镜像
+    # command: ["--spring.profiles.active=${ACTIVE_PROFILE:-docker}"]
+    # image: java
+    container_name: research-eureka-server-compose
     environment:
       TZ: 'Asia/Shanghai'
     ports:
       - "8761:8761"
     expose:
       - 8761
-    volumes:
-      - ./target/:/app
-    entrypoint: ["java", "-jar", "/app/research-eureka-server-1.0.0-SNAPSHOT.jar"]
     # build: ./target

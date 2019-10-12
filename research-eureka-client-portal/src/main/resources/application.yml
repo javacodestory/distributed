@@ -1,0 +1,26 @@
+server:
+  port: 8763
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.99.100:8761/eureka/
+
+spring:
+  application:
+    name: research-eureka-client-portal
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, beans, conditions, heapdump, shutdown, mappings, threaddump
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+info:
+  app:
+    name: research-eureka-client-portal
+    version: 1.0.0
