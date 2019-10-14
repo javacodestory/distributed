@@ -20,7 +20,7 @@ public class ZooKeeperMaster implements Watcher {
     /**
      * 服务器地址
      */
-    private String address = "localhost:2181";
+    private String address = "zookeeper-host:2181";
 
     ZooKeeper zk;
 
@@ -61,7 +61,7 @@ public class ZooKeeperMaster implements Watcher {
         @Override
         public void run() {
             try {
-                ZooKeeperMaster master = new ZooKeeperMaster("localhost:2181");
+                ZooKeeperMaster master = new ZooKeeperMaster("zookeeper-host:2181");
                 master.startZK();
                 master.runForMaster();
                 if (master.isLeader) {

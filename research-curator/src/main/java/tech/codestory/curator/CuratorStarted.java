@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class CuratorStarted {
     public static void main(String[] args) throws Exception {
-        String address = "localhost:2181";
+        String address = "zookeeper-host:2181";
         RetryPolicy retryPolicy = new ExponentialBackoffRetry(1000, 3);
         CuratorFramework client = CuratorFrameworkFactory.newClient(address, retryPolicy);
         client.start();

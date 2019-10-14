@@ -74,7 +74,7 @@ public class Worker extends ZooKeeperBase {
     }
 
     public static void main(String[] args) throws Exception {
-        Worker worker = new Worker("localhost:2181");
+        Worker worker = new Worker("zookeeper-host:2181");
         worker.register();
         Thread.sleep(30000);
     }

@@ -15,7 +15,7 @@ import static org.testng.Assert.*;
 public class DistributedLockClientTest {
     @Test
     public void testBlockingLock() {
-        String hostPort = "localhost:2181";
+        String hostPort = "zookeeper-host:2181";
         String lockPath = "/lock-" + System.currentTimeMillis();
         int threadCount = 5;
         DistributedLockClient[] clients = new DistributedLockClient[threadCount];

@@ -40,7 +40,7 @@ public class Client extends ZooKeeperBase {
     }
 
     public static void main(String[] args) throws Exception {
-        Client client = new Client("localhost:2181");
+        Client client = new Client("zookeeper-host:2181");
         String name = client.queueCommand("command");
         log.info("created : {}", name);
     }
