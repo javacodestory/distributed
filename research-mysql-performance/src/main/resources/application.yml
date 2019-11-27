@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    jpa:
+      database-platform: org.hibernate.dialect.MySQL5Dialect
+      hibernate:
+        ddl-auto: none
+      open-in-view: true
+      show-sql: true
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3308/huge-datas?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 336699ccff
