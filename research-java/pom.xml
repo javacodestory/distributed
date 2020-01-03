@@ -24,6 +24,11 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>5.2.2.RELEASE</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
@@ -91,9 +96,17 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>8</source>
+                    <target>8</target>
                     <encoding>UTF-8</encoding>
+                    <compilerArgs>
+<!--                        <compilerArg>-g</compilerArg>-->
+                        <compilerArg>-g:none</compilerArg>
+<!--                        <compilerArg>-g:lines</compilerArg>-->
+<!--                        <compilerArg>-g:vars</compilerArg>-->
+<!--                        <compilerArg>-g:source</compilerArg>-->
+<!--                        <compilerArg>-verbose</compilerArg>-->
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
