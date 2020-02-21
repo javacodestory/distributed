@@ -10,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import tech.codestory.research.boot.context.SpringContextRegister;
-import tech.codestory.research.boot.service.UserInfoSecondService;
+import tech.codestory.research.boot.ResearchSpringBootApplication;
 import tech.codestory.research.boot.service.UserInfoFirstService;
+import tech.codestory.research.boot.service.UserInfoSecondService;
 import tech.codestory.research.boot.service.UserInfoThirdService;
+import tech.codestory.research.boot.service.impl.UserInfoFirstServiceImpl;
+import tech.codestory.research.boot.service.impl.UserInfoService;
 
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Type;
@@ -22,7 +24,7 @@ import java.lang.reflect.Type;
 @Slf4j
 public class HomeController {
     @Autowired
-    SpringContextRegister springContextRegister;
+    ApplicationContext context;
 
     @RequestMapping(value = {"", "/", "/index.html"})
     public ModelAndView home() {
@@ -33,8 +35,7 @@ public class HomeController {
     @RequestMapping(value = {"/beans.json"})
     @ResponseBody
     public JSONArray beans() {
-        ApplicationContext context = springContextRegister.getApplicationContext();
-        Class[] beanClasses = new Class[]{UserInfoFirstService.class, UserInfoSecondService.class, UserInfoThirdService.class};
+        Class[] beanClasses = new Class[]{UserInfoService.class, UserInfoFirstService.class, UserInfoFirstServiceImpl.class, UserInfoSecondService.class, UserInfoThirdService.class};
         JSONArray jsons = new JSONArray();
 
         for (Class beanClass : beanClasses) {
@@ -60,9 +61,6 @@ public class HomeController {
                     interfaceJson.put("type", anInterface.getType());
                     if (Advised.class.getTypeName().equals(anInterface.getType().getTypeName())) {
                         log.info(anInterface.getType().toString());
-//                        Advised advised = (Advised) anInterface;
-//                        Class<?>[] proxiedInterfaces = advised.getProxiedInterfaces();
-//                        interfaceJson.put("proxiedInterfaces", proxiedInterfaces);
                     }
                 }
             }

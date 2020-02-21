@@ -3,10 +3,9 @@ package tech.codestory.research.boot.service;
 import tech.codestory.research.boot.model.UserInfo;
 
 /**
- * 定义 Service 接口<br>
- * 这个接口的实现类没有任何添加任何其他注解
+ * 没有添加其他注解的实现类
  *
- * @author liaojunyong
+ * @author javacodestory@gmail.com
  */
 public interface UserInfoFirstService {
     /**

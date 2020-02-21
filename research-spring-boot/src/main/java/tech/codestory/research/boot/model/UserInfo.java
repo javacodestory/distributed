@@ -3,9 +3,9 @@ package tech.codestory.research.boot.model;
 import lombok.Data;
 
 /**
- * 用户类
+ * 用户实体
  *
- * @author liaojunyong
+ * @author javacodestory@gmail.com
  */
 @Data
 public class UserInfo {

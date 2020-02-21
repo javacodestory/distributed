@@ -86,25 +86,7 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>creditease-nexus-groups-public</id>
-            <name>Creditease Nexus Groups Public</name>
-            <url>http://nexus.creditease.corp/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
     <pluginRepositories>
-        <pluginRepository>
-            <id>creditease-nexus-groups-public-plugin</id>
-            <name>Creditease Nexus Groups Public for Plugin</name>
-            <url>http://nexus.creditease.corp/nexus/content/groups/public/</url>
-        </pluginRepository>
         <pluginRepository>
             <id>maven-repository-plugin</id>
             <name>Maven Repository for Plugin</name>

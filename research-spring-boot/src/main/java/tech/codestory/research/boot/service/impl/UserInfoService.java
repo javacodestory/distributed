@@ -10,14 +10,13 @@ import tech.codestory.research.boot.service.UserInfoFirstService;
  * @author javacodestory@gmail.com
  */
 @Service
-public class UserInfoFirstServiceImpl implements UserInfoFirstService {
+public class UserInfoService {
     /**
      * 获取一个用户信息
      *
      * @param account
      * @return
      */
-    @Override
     public UserInfo getUserInfo(String account) {
         return null;
     }
