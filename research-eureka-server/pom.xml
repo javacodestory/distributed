@@ -59,17 +59,6 @@
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>1.2.1</version>
-                <!--
-                <executions>
-                    <execution>
-                        <id>build-image</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                -->
                 <configuration>
                     <imageName>tech-codestory/${project.artifactId}:${project.version}</imageName>
                     <baseImage>java:8</baseImage>
@@ -85,12 +74,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>maven-repository-plugin</id>
-            <name>Maven Repository for Plugin</name>
-            <url>https://mvnrepository.com/artifact/</url>
-        </pluginRepository>
-    </pluginRepositories>
 </project>
