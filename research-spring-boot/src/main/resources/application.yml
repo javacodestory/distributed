@@ -1,12 +1,21 @@
 server:
   port: 9080
 spring:
+  cache:
+    type: simple
+    redis:
+      time-to-live: 30
+
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:h2test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password:
     platform: h2
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat, wall, log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
@@ -14,7 +23,7 @@ spring:
     properties:
       hibernate:
         show_sql: true
-        use_sql_comments: tru
+        use_sql_comments: true
   h2:
     console:
       enabled: true
@@ -22,6 +31,20 @@ spring:
       settings:
         trace: false
         web-allow-others: false
+
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+#    database: 0
+#    password:
+#    jedis:
+#      pool:
+#        max-active: 8
+#        max-wait: 8
+#        max-idle: 8
+#        min-idle: 0
+#    timeout: 5000
 logging:
   level:
-      root: INFO
+    root: INFO
+  config: classpath:logback-spring.xml

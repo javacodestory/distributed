@@ -10,12 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import tech.codestory.research.boot.ResearchSpringBootApplication;
+import tech.codestory.research.boot.model.UserInfo;
 import tech.codestory.research.boot.service.UserInfoFirstService;
 import tech.codestory.research.boot.service.UserInfoSecondService;
 import tech.codestory.research.boot.service.UserInfoThirdService;
 import tech.codestory.research.boot.service.impl.UserInfoFirstServiceImpl;
 import tech.codestory.research.boot.service.impl.UserInfoService;
+import tech.codestory.research.boot.thread.InheritableRemoteUserContainer;
+import tech.codestory.research.boot.thread.RemoteUserContainer;
 
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Type;
@@ -25,10 +27,30 @@ import java.lang.reflect.Type;
 public class HomeController {
     @Autowired
     ApplicationContext context;
+    @Autowired
+    UserInfoFirstService userInfoService;
 
     @RequestMapping(value = {"", "/", "/index.html"})
     public ModelAndView home() {
+        String name = "令狐冲";
+
         ModelAndView view = new ModelAndView("/index");
+        UserInfo userInfo = new UserInfo();
+        userInfo.setAccount("account");
+        userInfo.setName(name);
+        userInfo.setPassword("password");
+        log.info("userInfo:{}", userInfo);
+        log.info("userInfo=", userInfo);
+
+        RemoteUserContainer.setRemoteUser(name);
+        InheritableRemoteUserContainer.setRemoteUser(name);
+
+        for (int i = 0; i < 5; i++) {
+            log.info("call service {} times start ...", i);
+            log.info("remote user is {}", userInfoService.printRemoteUser());
+            log.info("call service {} times complete", i);
+        }
+
         return view;
     }
 

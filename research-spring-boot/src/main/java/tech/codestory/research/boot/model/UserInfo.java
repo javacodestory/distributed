@@ -1,14 +1,21 @@
 package tech.codestory.research.boot.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.io.Serializable;
 
 /**
  * 用户实体
  *
  * @author javacodestory@gmail.com
  */
-@Data
-public class UserInfo {
+@Setter
+@Getter
+@ToString
+public class UserInfo implements Serializable {
+
     /**
      * 账号
      */

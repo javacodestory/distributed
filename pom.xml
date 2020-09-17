@@ -15,8 +15,10 @@
 		<module>research-java</module>
 		<module>research-zoo-keeper</module>
         <module>research-eureka-server</module>
+        <module>research-rocket-mq</module>
+        <module>research-spring-session</module>
     </modules>
-	
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -46,7 +48,7 @@
             <artifactId>findbugs</artifactId>
             <scope>provided</scope>
         </dependency>
-		
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
@@ -98,7 +100,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-	
+
     <build>
         <plugins>
             <plugin>

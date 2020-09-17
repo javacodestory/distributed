@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="DEBUG" name="commonTestLogger" monitorInterval="30">
+    <appenders>
+        <Console name="stdout">
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="%d{mm:ss.SSS} [%t] [%p] - %c{1.}(%M:%L) - %m%n"/>
+        </Console>
+    </appenders>
+    <ThresholdFilter level="DEBUG"/>
+    <loggers>
+        <root level="INFO">
+            <appender-ref ref="stdout"/>
+        </root>
+    </loggers>
+</configuration>

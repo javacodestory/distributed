@@ -15,4 +15,9 @@ public interface UserInfoFirstService {
      * @return
      */
     UserInfo getUserInfo(String account);
+
+    /**
+     * 打印用户信息
+     */
+    String printRemoteUser();
 }
